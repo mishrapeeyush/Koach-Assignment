@@ -1,11 +1,10 @@
-const  Employee = require("../../models/employee_model");
-const mongoose = require('mongoose');
+const  Employee = require("../models/employee_model");
+const mongoose = require('mongoose')
 
+//jsut a change
 exports.createEmployee = async (req, res) => {
   try {
-    
-    
-    
+        
     const {
         EmployeeName,Age,phoneNo,YearsOfExp,Department,Salary
       
@@ -34,12 +33,11 @@ exports.getEmployees = async (req, res) => {
         success: true,
         
         data: 
-         employees
-        ,
+         employees,
       }
       );
   } catch (error) {
-    res.status(404).json({ success: false , message: "Something went wrong !", data: error });
+    res.status(404).json({ success: false , message: "Something Went Wrong !", data: error });
   }
 }
 
@@ -51,7 +49,7 @@ exports.deleteEmployee = async(req,res)=>{
     return res.status(404).send("EMPLOYEE NOT FOUND")
     res.status(201).json({
         success: true,
-        message:"This employee has been deleted successfully",
+        message:"Employee has been deleted successfully from database",
         data:deletedEmployee
     });
 
@@ -59,17 +57,13 @@ exports.deleteEmployee = async(req,res)=>{
     
     res.status(500).json({
         success: false,
-        message: 'An Error has occured',
+        message: 'Error has occured',
     });
-
   }
-
 }
 
 exports.getOneEmployee =async(req,res)=> {
-
     try{
-
         const OneEmployee = await Employee.findById(req.params.id)
     
             res.status(201).json({
@@ -78,23 +72,19 @@ exports.getOneEmployee =async(req,res)=> {
                 data:OneEmployee
             });
     
-      }catch(error){
-    
-        
+      }catch(error){            
             res.status(500).json({
                 success: false,
-                message: 'An Error has occured',
-            });
-        
+                message: 'Error has occured',
+            });        
       }
 
 }
 
 exports.updateEmployee = async(req,res)=>{
-
   try{
 
-    const updatedEmployee = await Employee.findByIdAndUpdate(req.params.id,req.body)
+    const updatedEmployee = await Employee.findByIdAndUpdate(req.params.id,req.body,{new:true});
 
         res.status(201).json({
             success: true,
@@ -107,7 +97,7 @@ exports.updateEmployee = async(req,res)=>{
     
         res.status(500).json({
             success: false,
-            message: 'An Error has occured',
+            message: 'Error has occured',
         });
     
   }
